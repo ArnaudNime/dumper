@@ -1,0 +1,55 @@
+{% extends 'layoutDebug.html.twig' %}
+
+{% block title %}Object{% endblock %}
+
+{% block content %}
+
+<h1>
+    <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    <span class='typeDebug' >{{type}}</span> {{class|raw}}
+</h1>
+<div class="row">
+    <div class="col col-lg-6">
+       {% if parent is not empty %}
+           <h2 class='objectDebug'>Parent</h2>
+           <h3> {{parent|raw}}</h3>
+        {% endif %}
+    </div>
+    <div class="col col-lg-6">
+        {% if interfaces is not empty %}
+            <h2 class='objectDebug'>Interfaces</h2>
+            {% for interface in interfaces %}
+                <h3> {{interface|raw}}</h3>    
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+        
+<div class="arrayDebug">
+ {% if constants is not empty %}
+    <h2 class='objectDebug'>Constantes</h2>
+    {% for constant in constants %}
+        <h3> {{constant|raw}}</h3>
+    {% endfor %}
+ {% endif %}
+ {% if properties is not empty %}
+    <h2 class='objectDebug'>Attributs</h2>
+    {% for property in properties %}
+        <h3> {{property|raw}}</h3>
+    {% endfor %}
+ {% endif %}
+ {% if methods is not empty %}
+    <h2 class='objectDebug'>Méthodes</h2>
+    {% for method in methods %}
+        <h3> {{method|raw}}</h3>
+    {% endfor %}
+ {% endif %}
+ {% if traits is not empty %}
+     <h2 class='objectDebug'>Traits</h2>
+     {% for trait in traits %}
+            <h3> {{trait|raw}}</h3>
+     {% endfor %}
+ {% endif %}
+</div>
+
+{% endblock content %}

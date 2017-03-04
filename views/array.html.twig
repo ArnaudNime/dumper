@@ -1,0 +1,15 @@
+{% extends 'layoutDebug.html.twig' %}
+
+{% block title %}Array{% endblock %}
+
+{% block content %}
+
+<h1>
+    <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    <span class='typeDebug' >{{type}}</span> ({{size}})
+</h1>
+<div class="arrayDebug arrayResult">
+    <h2 class="valueDebug">{{data|raw}}{{indentation}}</h2>
+</div>
+
+{% endblock content %}

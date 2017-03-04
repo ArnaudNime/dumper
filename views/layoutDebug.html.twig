@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <style>
+        body { padding-top: 20px;padding-left: 20px; font-family: monospace; background: #111; }
+        .app { display: flex; min-height: 100vh; flex-direction: column; }
+        .app-content { flex: 1; }
+        .app-footer { padding-bottom: 1em; }
+        .zf-green, h2 a { color: #68b604; }
+        .typeDebug { padding-left: 20px; }
+        .valueDebug {color: white; margin-left: 10px;}
+        .arrayResult .valueDebug {color: #68b604; margin-left: 10px;}
+        .dataDebug {color: red; font-weight: 900;}
+        .objectDebug {text-decoration: underline; font-size: 1.5em; color:white;}
+        .arrayDebug {margin-left: 100px;}
+        h1 {margin-bottom: 20px; color: white; font-size: 2em;}
+        h2 {font-size: 1em;}
+        h3 {color:#aaa;font-size: 1em;}
+        .hiddenIndent{color: #111;}
+        .objectComposed{color: white; padding-left: 25px;font-size: 0.7em;}
+        .phpdoc {margin-top: 5px;;margin-left: 10px;background-color: #111; color: green; display: none; }
+        .btn-phpdoc, .btn-array, .btn-object {margin-left: 10px;cursor: pointer; color: yellow;}
+        .injectArray, .injectObject {width:900px; margin: 10px;padding:5px;padding-left: 20px;border: 2px solid white; border-radius: 10px; display: none; background-color: #111; position: relative; z-index: 1}
+        .injectObject .valueDebug {display: inline-block; padding: 5px; text-decoration: underline;}
+        .injectObject .btn-phpdoc, .injectObject .btn-array, .injectObject .btn-object {color: white;}
+        .injectArray .btn-phpdoc, .injectArray .btn-array, .injectArray .btn-object {color: white;}
+        .debug-selection {display: inline-block; margin : 4px;background-color: white; color : #111; padding: 3px; border-radius: 3px;}
+    </style>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body class="app">
+    <div class="app-content">
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    <footer class="app-footer">
+        <div>
+            <hr />
+            {% block footer %}
+                <p>
+                    &copy; 2005 - {{ "now"|date("Y") }} by Zend Technologies Ltd. All rights reserved.
+                </p>
+            {% endblock %}
+        </div>
+    </footer>
+</body>
+<script>
+    $(".btn-phpdoc").click(function() {
+        $(this).next("div").toggle();
+    });
+    $(".btn-array").click(function() {
+        changeDisplay($(this));
+    });
+    $(".btn-object").click(function() {
+        changeDisplay($(this));
+    });
+    var changeDisplay = function(elmt) {
+        $(elmt).toggleClass("fa-arrow-circle-down fa-arrow-circle-up");
+        $(elmt).next("div").toggle();
+        $(elmt).prev("span").toggleClass('debug-selection');
+    }
+</script>
+</html>
