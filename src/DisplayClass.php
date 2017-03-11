@@ -63,7 +63,7 @@ class DisplayClass extends DisplayObject
 
         return [
             "type" => 'Class',
-            "class" => "",
+            "class" => AddHTML::classSpan($this->className, 'dataDebug'),
             "parent" => ($htmlParentClassName ?? "" ) . ($injectParentClass ?? "") . ($phpdocParentClass ?? ""),
             "interfaces" => $this->interfaces,
             "constants" => $this->constants,

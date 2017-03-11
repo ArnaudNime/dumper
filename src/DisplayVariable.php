@@ -2,6 +2,7 @@
 
 namespace DebugHandler;
 
+use Prophecy\Exception\Doubler\ClassCreatorException;
 use Twig_Environment;
 use Zend\Expressive\Template\Twig;
 
@@ -11,10 +12,6 @@ class DisplayVariable
     private $templateData;
 
     public static function dbg($variable)
-    {
-        return self::getPage($variable);
-    }
-    private static function getPage($variable)
     {
         return new Self($variable);
     }
@@ -54,12 +51,18 @@ class DisplayVariable
     }
     private function isStringValue(string $type, $value)
     {
-        $this->template = $this->twig->load('string.html.twig');
-        $this->templateData = [
-            "type" => $type,
-            "size" => strlen($value),
-            "value" => $value,
-        ];
+        if (class_exists($value)) {
+            $this->template = $this->twig->load('object.html.twig');
+            $displayClass = new DisplayClass($value);
+            $this->templateData = $displayClass->render($displayClass);
+        } else {
+            $this->template = $this->twig->load('string.html.twig');
+            $this->templateData = [
+                "type" => $type,
+                "size" => strlen($value),
+                "value" => $value,
+            ];
+        }
     }
     private function isArray(string $type, array $array)
     {
